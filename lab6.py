@@ -28,6 +28,7 @@ rectangle1.penup()
 rectangle1.forward(100)
 
 turtle.hideturtle()
+"""
 class Square(Rectangle)
 	def __init__(self, width, height):
 		Rectangle.__init__(self, width, height)
@@ -41,7 +42,7 @@ class Square(Rectangle)
 
 square1 = Square(3)
 square1.random_color()
-
+"""
 
 
 turtle.mainloop()
