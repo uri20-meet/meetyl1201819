@@ -4,10 +4,14 @@ import turtle
 from turtle import Turtle
 import math
 import random
+import time
+
 turtle.tracer(0)
 
-width = 450
-height = 350
+SCREEN_WIDTH = turtle.getcanvas().winfo_width()/2
+SCREEN_HEIGHT = turtle.getcanvas().winfo_width()/2
+RUNNING = True
+SLEEP = 0.0077
 class Ball(Turtle):
 	def __init__(self, x, y, radius, dx, dy, color):
 		Turtle.__init__(self)
@@ -22,7 +26,7 @@ class Ball(Turtle):
 		self.dy = dy
 
 	def move(self):
-		global width, height
+		global SCREEN_WIDTH, SCREEN_HEIGHT
 		self.penup()
 		oldX = self.xcor()
 		oldY = self.ycor()
@@ -31,9 +35,9 @@ class Ball(Turtle):
 		absX = math.fabs(newX)
 		absY = math.fabs(newY)
 
-		if absX >= width:
+		if absX >= SCREEN_WIDTH:
 			self.dx = -self.dx
-		if absY >= height:
+		if absY >= SCREEN_HEIGHT:
 			self.dy = -self.dy
 
 		self.goto(newX, newY)
@@ -44,6 +48,46 @@ class Ball(Turtle):
 		if (self.radius + addition)/10 >= 5:
 			self.radius += addition
 			self.shapesize(self.radius/10)
+
+
+#_______________________________________________________________________________
+
+
+numberOfBalls = 6
+minimumRadius = 10
+maximumRadius = 100
+minimumDx = -5
+maximumDx = 5
+minimumDy = -5
+maximumDy = 5
+ballsList = []
+
+for i in range(0,numberOfBalls):
+	newBallX = random.randint(-SCREEN_WIDTH + maximumRadius, SCREEN_WIDTH - maximumRadius)
+	newBallY = random.randint(-SCREEN_HEIGHT + maximumRadius, SCREEN_HEIGHT - maximumRadius)
+	newBallRadius = random.randint(minimumRadius, maximumRadius)
+	while newBallDx == 0 or newBallDy == 0:
+		newBallDx = random.randint(minimumDx, maximumDx)
+		newBallDy = random.randint(minimumDy, maximumDy)
+	newBallColor = (random.random(),random.random(),random.random())
+	myBall = Ball(newBallX, newBallY, newBallRadius, newBallDx, newBallDy, newBallColor)
+	ballsList.append(myBall)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def check_collision(ballA, ballB):
 	global bgIsBlack
@@ -86,20 +130,20 @@ def collisionInList(listOfBalls):
 			if check_collision(listOfBalls[i], listOfBalls[q]) and listOfBalls[i] !=listOfBalls[q] :
 				collided = True
 
-
-
+#______________________________________________________________________________
 
 
 bob = Ball(100, 0, 48, 0.1, 0.01, "green")
 john = Ball(100, 250, 32, -0.15, 0.06, "blue")
 kevin = Ball(-100, 0, 40, 0.07, 0.16, "red")
 arl = Ball(0, -300, 36, 0.18, -0.07, "yellow")
-shawn = Ball(-200, -100, 20, -0.09, -0.11, "indigo")
-ballsList = [bob, john, kevin, arl, shawn]
+shawn = Ball(-200, -100, 20, -0.09, -0.11, "orange")
+myBall = Ball(-300, -300, 35, -0.09, -0.11, "indigo")
 while True:
 	bob.move()
 	john.move()
 	kevin.move()
 	arl.move()
 	shawn.move()
+	myBall.move()
 	turtle.update()
